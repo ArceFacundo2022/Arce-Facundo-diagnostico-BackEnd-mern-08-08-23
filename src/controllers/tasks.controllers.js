@@ -1,10 +1,10 @@
-import Tasks from '../models/Tasks'
+import Tasks from '../models/Tasks.js';
 
 const ctrlTask = {};
 
 ctrlTask.getTasks = async (req, res) => {
     try {
-        const tasks = await Tasks.find({ isActive: true });
+        const tasks = await Tasks.find();
 
         return res.json({
             message: "Tareas de todos los usuarios",
@@ -24,7 +24,7 @@ ctrlTask.postTasks = async (req, res) => {
         const { titulo, descripcion } = req.body;
         const newTask = new Tasks({
             titulo,
-            descripcion,
+            descripcion
         });
 
         const task = await newTask.save();
@@ -69,11 +69,27 @@ ctrlTask.putTasks = async (req, res) => {
 
 ctrlTask.putStatusTasks = async (req, res) => {
     const id = req.params.id;
-
+    let {state} = req.body
+    
     try {
+
+        console.log(state)
+
+        switch(state){
+            case "Pendiente":
+                state = "Completado"
+                break
+            case "Completado":
+                state = "Pendiente"
+                break
+            default:
+                state = "Pendiente"
+                console.log("que paso aca 🙃")
+                break
+        }
         const tareaUpdate = await Tasks.findByIdAndUpdate(
             id,
-            { isDone: true },
+            {state},
             { new: true }
         );
 

@@ -9,6 +9,6 @@ Taskrouter.get("/tareas",getTasks)
 Taskrouter.post("/tareas",postTasks)
 Taskrouter.put("/tareas/:id",putTasks)
 Taskrouter.delete("/tareas/:id",deleteTask)
-Taskrouter.put("/tareas/StatusTarea/:id",putStatusTasks)
+Taskrouter.put("/statusTarea/:id",putStatusTasks)
 
 export default Taskrouter

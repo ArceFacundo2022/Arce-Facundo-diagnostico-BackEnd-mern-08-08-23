@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const TaskSchema = new Schema({
     titulo: {
@@ -9,23 +9,14 @@ const TaskSchema = new Schema({
         type: String,
         required: true,
     },
-    isActive: {
-        type: Boolean,
-        default: true,
-    },
-    isDone: {
-        type: Boolean,
-        default: false,
-    },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Users',
-    },
+    state: {
+        type: String,
+        default: "Pendiente",
+    }
 }, {
     versionKey: false,
     timestamps: true,
 });
 
-const Tasks = model('Tasks', TaskSchema);
 
-export default Tasks;
+export default model('Tasks', TaskSchema);
